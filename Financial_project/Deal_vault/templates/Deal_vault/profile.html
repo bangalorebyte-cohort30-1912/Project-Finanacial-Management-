@@ -1,0 +1,114 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Deal Vault</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+    {% if user.is_authenticated %}
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Add
+        </button>
+
+        <div class="container pb-5">       
+            <table  class="table" > 
+                <thead class="thead-randstad text-center">
+                    <tr style="font-size:.75em">
+                        <th scope="col" >#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Transaction_Name</th>
+                        <th scope="col">Transaction_Type</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Payment_Method</th>
+                    </tr>
+                </thead>
+                    <tbody class="text-center">
+                        {% for transact in Transaction_list %}                  
+                        <tr style="font-size:.8em">
+                            <th scope="row">{{ forloop.counter }}</th> 
+                            <td>{{ transact.email  }}</td>
+                            <td>{{ transact.transaction_name  }}</td>
+                            <td>{{ transact.transaction_type  }}</td>
+                            <td> {{ transact.amount }}</td>
+                            <td>{{ transact.Payment_method }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                </table>
+
+            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+            integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+            crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+            integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+            crossorigin="anonymous"></script> 
+        
+        <body>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="d-flex justify-content-end">
+                        <h5 class="modal-title">Enter your Transaction</h5></div>
+                    </div>
+                    <div class="modal-body mx-3">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {% load crispy_forms_tags %}
+                        {{ form.non_field_errors }}
+                        {% load crispy_forms_tags %}
+                        {{ form.non_field_errors }}
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.Name|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.input_Type|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.amount|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-6 mb-0">
+                        {{ form.Payment_method|as_crispy_field }}
+                        <input type="submit" value="OK">
+                    </div>
+                    </form>    
+                </div>
+                </div>
+            </div>
+            </div>
+           <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+        integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+        integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script> 
+        <body>
+    {% else %}
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4 text-center">Deal Vault</h1>
+            <p class="lead text-center">Manage your Transactions</p>
+            <div class="text-center">
+                <a type="button" class="btn btn-lg btn-randstad center" href="{% url 'social:begin' 'google-oauth2' %}">Login</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% if user.is_authenticated %}
+    <div class=d-flex justify-content-centre>
+        <h3>Hi, {{ user.first_name }}</h3>
+        <a type="button" class="btn btn-randstad" href="/logout">Logout</a>
+    </div>
+    {% endif %}
+
+
+
